@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroConsciente</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f7f2;
+    color:#333;
+}
+
+header{
+    background:linear-gradient(135deg,#2e7d32,#66bb6a);
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+header h1{
+    font-size:2.5rem;
+}
+
+nav{
+    background:#1b5e20;
+    padding:15px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 15px;
+    font-weight:bold;
+}
+
+section{
+    padding:40px 10%;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-top:20px;
+    border-radius:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+    color:#2e7d32;
+    margin-bottom:15px;
+}
+
+ul li{
+    margin:10px 0;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+button{
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1b5e20;
+}
+
+.resultado{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.quiz-opcao{
+    display:block;
+    margin:10px 0;
+}
+
+footer{
+    background:#1b5e20;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 AgroConsciente</h1>
+    <p>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
+</header>
+
+<nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#calculadora">Calculadora</a>
+    <a href="#quiz">Quiz</a>
+</nav>
+
+<section id="sobre">
+    <div class="card">
+        <h2>Sobre o Projeto</h2>
+        <p>
+            O AgroConsciente ajuda produtores, estudantes e a comunidade
+            a compreender a importância da sustentabilidade no agronegócio.
+            O objetivo é incentivar práticas que aumentem a produtividade
+            sem prejudicar os recursos naturais.
+        </p>
+
+        <h2>Boas Práticas Sustentáveis</h2>
+        <ul>
+            <li>🌳 Preservação das matas ciliares</li>
+            <li>💧 Uso eficiente da água</li>
+            <li>🌾 Rotação de culturas</li>
+            <li>🚜 Agricultura de precisão</li>
+            <li>♻️ Redução do desperdício</li>
+        </ul>
+    </div>
+</section>
+
+<section id="calculadora">
+    <div class="card">
+        <h2>Calculadora de Sustentabilidade</h2>
+
+        <label>Quantidade de árvores preservadas:</label>
+        <input type="number" id="arvores">
+
+        <label>Consumo mensal de água (litros):</label>
+        <input type="number" id="agua">
+
+        <button onclick="calcular()">Calcular Índice</button>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+</section>
+
+<section id="quiz">
+    <div class="card">
+        <h2>Quiz Ambiental</h2>
+
+        <p><strong>Qual prática ajuda a conservar o solo?</strong></p>
+
+        <label class="quiz-opcao">
+            <input type="radio" name="quiz" value="errado">
+            Desmatamento
+        </label>
+
+        <label class="quiz-opcao">
+            <input type="radio" name="quiz" value="certo">
+            Rotação de culturas
+        </label>
+
+        <label class="quiz-opcao">
+            <input type="radio" name="quiz" value="errado">
+            Queimadas frequentes
+        </label>
+
+        <button onclick="verificarQuiz()">Responder</button>
+
+        <div class="resultado" id="quizResultado"></div>
+    </div>
+</section>
+
+<footer>
+    <p>Projeto AgroConsciente © 2025</p>
+</footer>
+
+<script>
+function calcular() {
+
+    let arvores = Number(document.getElementById("arvores").value);
+    let agua = Number(document.getElementById("agua").value);
+
+    let pontos = 0;
+
+    if(arvores >= 50){
+        pontos += 50;
+    } else {
+        pontos += arvores;
+    }
+
+    if(agua <= 5000){
+        pontos += 50;
+    } else if(agua <= 10000){
+        pontos += 30;
+    } else {
+        pontos += 10;
+    }
+
+    let resultado = document.getElementById("resultado");
+
+    if(pontos >= 80){
+        resultado.innerHTML =
+        "✅ Índice Excelente (" + pontos +
+        "%)<br>Parabéns! Sua propriedade demonstra boas práticas sustentáveis.";
+    }
+    else if(pontos >= 50){
+        resultado.innerHTML =
+        "⚠️ Índice Bom (" + pontos +
+        "%)<br>Existem oportunidades para melhorar a sustentabilidade.";
+    }
+    else{
+        resultado.innerHTML =
+        "❌ Índice Baixo (" + pontos +
+        "%)<br>Recomenda-se investir em preservação ambiental e economia de água.";
+    }
+}
+
+function verificarQuiz(){
+
+    let resposta =
+    document.querySelector('input[name="quiz"]:checked');
+
+    let resultado =
+    document.getElementById("quizResultado");
+
+    if(!resposta){
+        resultado.innerHTML =
+        "Selecione uma alternativa.";
+        return;
+    }
+
+    if(resposta.value === "certo"){
+        resultado.innerHTML =
+        "✅ Correto! A rotação de culturas ajuda a conservar o solo e aumentar a produtividade.";
+    }else{
+        resultado.innerHTML =
+        "❌ Incorreto. A resposta correta é Rotação de Culturas.";
+    }
+}
+</script>
+
+</body>
+</html>
